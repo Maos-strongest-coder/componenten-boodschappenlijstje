@@ -10,5 +10,4 @@ export default {
 
 <template>
     <h2>Edit</h2>
-    <button @click="goToEdit">Go to Edit</button>
 </template>

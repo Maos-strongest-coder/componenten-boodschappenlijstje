@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import {router} from '../domains/groceries/routes.js';
+import routes from '../domains/groceries/routes.js';
 
-export const router = createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes,
 });

@@ -17,7 +17,7 @@ const newProductName = ref('');
 const newProductPrice = ref('');
 
 const addProduct = () => {
-    if (newProductName.value && newProductPrice.value != NaN) {
+    if (newProductName.value && !isNaN(newProductPrice.value)) {
         emit('addProduct', {name: newProductName.value, price: parseFloat(newProductPrice.value), quantity: 0});
 
         newProductName.value = '';

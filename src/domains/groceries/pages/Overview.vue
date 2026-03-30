@@ -1,13 +1,6 @@
-<script>
-export default {
-    methods: {
-        goToOverview() {
-            this.$router.push('/overview');
-        },
-    },
-};
-
+<script setup>
 import {ref} from 'vue';
+import GroceriesTable from '../components/GroceriesTable.vue';
 
 const products = ref([
     {name: 'Rijst', price: 1.0, quantity: 0},
@@ -15,9 +8,14 @@ const products = ref([
     {name: 'Koekjes', price: 1.2, quantity: 0},
     {name: 'Noten', price: 2.99, quantity: 0},
 ]);
+
+const addProduct = product => {
+    products.value.push(product);
+};
 </script>
 
 <template>
     <h2>Overview</h2>
-    <button @click="goToOverview">Go to Overview</button>
+
+    <GroceriesTable :products="products" @addProduct="addProduct" />
 </template>
