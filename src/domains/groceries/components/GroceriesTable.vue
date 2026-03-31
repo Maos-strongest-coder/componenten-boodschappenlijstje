@@ -1,51 +1,33 @@
 <script setup>
-import {ref, computed} from 'vue';
+import {computed} from 'vue';
 
 const props = defineProps({
-    products: Array,
+    groceries: Array,
 });
-
-const emit = defineEmits(['addProduct']);
 
 const total = computed(() => {
-    return props.products.reduce((sum, product) => {
-        return sum + product.price * product.quantity;
+    return props.groceries.reduce((sum, grocery) => {
+        return sum + grocery.price * grocery.quantity;
     }, 0);
 });
-
-const newProductName = ref('');
-const newProductPrice = ref('');
-
-const addProduct = () => {
-    if (newProductName.value && !isNaN(newProductPrice.value)) {
-        emit('addProduct', {name: newProductName.value, price: parseFloat(newProductPrice.value), quantity: 0});
-
-        newProductName.value = '';
-        newProductPrice.value = '';
-    }
-};
 </script>
 
 <template>
-    <input type="text" v-model.trim="newProductName" placeholder="Product naam" />
-    <input type="number" step="0.01" v-model="newProductPrice" placeholder="Prijs" />
-    <button type="button" v-on:click="addProduct()">Voeg product toe</button>
-
     <table>
         <thead>
             <tr>
-                <th>Product</th>
+                <th>Boodschappen</th>
                 <th>Prijs</th>
                 <th>Hoeveelheid</th>
                 <th>Subtotaal</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(product, index) in props.products" :key="index">
-                <td>{{ product.name }}</td>
-                <td>€ {{ product.price.toFixed(2) }}</td>
-                <td><input type="number" min="0" v-model="product.quantity" /></td>
-                <td>€ {{ (product.price * product.quantity).toFixed(2) }}</td>
+            <tr v-for="(grocery, index) in props.groceries" :key="index">
+                <td>{{ grocery.name }}</td>
+                <td>€ {{ grocery.price.toFixed(2) }}</td>
+                <td><input type="number" min="0" v-model="grocery.quantity" /></td>
+                <td>€ {{ (grocery.price * grocery.quantity).toFixed(2) }}</td>
             </tr>
             <tr>
                 <td colspan="3"><b>Totaal</b></td>
@@ -65,9 +47,9 @@ table {
     text-align: left;
 }
 
-table .productQuantity,
-.productPrice,
-.productTotalCost,
+table .groceryQuantity,
+.groceryPrice,
+.groceryTotalCost,
 #totalCost {
     text-align: right;
 }
