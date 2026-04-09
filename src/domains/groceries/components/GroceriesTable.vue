@@ -1,5 +1,6 @@
 <script setup>
 import {computed} from 'vue';
+import {removeGrocery} from '../store';
 
 const props = defineProps({
     groceries: Array,
@@ -20,14 +21,21 @@ const total = computed(() => {
                 <th>Prijs</th>
                 <th>Hoeveelheid</th>
                 <th>Subtotaal</th>
+                <th>Acties</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(grocery, index) in props.groceries" :key="index">
+            <tr v-for="grocery in props.groceries" :key="grocery.id">
                 <td>{{ grocery.name }}</td>
                 <td>€ {{ grocery.price.toFixed(2) }}</td>
                 <td><input type="number" min="0" v-model="grocery.quantity" /></td>
                 <td>€ {{ (grocery.price * grocery.quantity).toFixed(2) }}</td>
+                <td>
+                    <router-link :to="`/edit/${grocery.id}`">Bewerken</router-link>
+                    |
+
+                    <button @click="removeGrocery(grocery.id)">verwijderen</button>
+                </td>
             </tr>
             <tr>
                 <td colspan="3"><b>Totaal</b></td>

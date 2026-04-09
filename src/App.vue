@@ -5,8 +5,6 @@
         <router-link to="/create">Create</router-link>
         |
         <router-link to="/">Overview</router-link>
-        |
-        <router-link to="/edit">Edit</router-link>
     </nav>
 
     <router-view />
